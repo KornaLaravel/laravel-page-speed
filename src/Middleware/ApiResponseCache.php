@@ -216,7 +216,7 @@ class ApiResponseCache extends PageSpeed
      * Invalidate cached entries related to a mutation request.
      *
      * @param  \Illuminate\Http\Request $request
-     * @return void
+     * @return bool
      */
     protected function invalidateCache($request)
     {
@@ -246,12 +246,6 @@ class ApiResponseCache extends PageSpeed
         return $invalidated;
     }
 
-    /**
-     * Determine if cache store supports tags.
-     *
-     * @param  \Illuminate\Cache\Repository $store
-     * @return bool
-     */
     /**
      * Keep index of cache keys per tag group for manual invalidation.
      *

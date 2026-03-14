@@ -23,6 +23,11 @@ class InlineCss extends PageSpeed
      */
     public function apply($buffer)
     {
+        // Reset instance state to prevent leaking across requests (Octane/Swoole)
+        $this->class = [];
+        $this->style = [];
+        $this->inline = [];
+
         // Early return when no inline style attributes are present
         if (stripos($buffer, 'style="') === false) {
             return $buffer;

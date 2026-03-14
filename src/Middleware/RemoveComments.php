@@ -23,10 +23,6 @@ class RemoveComments extends PageSpeed
             return $buffer;
         }
 
-        // Log performance metrics
-        $startTime = microtime(true);
-        $originalSize = strlen($buffer);
-
         // First, remove multi-line comments (/* ... */) from script/style tags
         $buffer = $this->replaceInsideHtmlTags(['script', 'style'], self::REGEX_MATCH_MULTILINE_COMMENTS, '', $buffer);
 
@@ -38,14 +34,6 @@ class RemoveComments extends PageSpeed
             self::REGEX_MATCH_HTML_COMMENTS => '',
         ];
         $buffer = $this->replace($replaceHtmlRules, $buffer);
-
-        // Log performance metrics
-        $endTime = microtime(true);
-        $processingTime = $endTime - $startTime;
-        $finalSize = strlen($buffer);
-        $sizeReduction = $originalSize - $finalSize;
-
-        $this->logPerformanceMetrics($processingTime, $originalSize, $finalSize, $sizeReduction);
 
         return $buffer;
     }

@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Log;
 
 abstract class PageSpeed
 {
-    protected static $isEnabled;
-
     /**
      * Apply rules.
      *
@@ -111,13 +109,7 @@ abstract class PageSpeed
      */
     protected function isEnable()
     {
-        if (! is_null(static::$isEnabled)) {
-            return static::$isEnabled;
-        }
-
-        static::$isEnabled = (bool) config('laravel-page-speed.enable', true);
-
-        return static::$isEnabled;
+        return (bool) config('laravel-page-speed.enable', true);
     }
 
     /**

@@ -90,7 +90,7 @@ class ConfigTest extends TestCase
         $this->assertNotEquals($this->html, $response->getContent());
     }
 
-    public function test_wont_read_enable_config_more_than_once(): void
+    public function test_enable_config_reflects_runtime_changes(): void
     {
         $pageSpeed = m::mock(TrimUrls::class)
             ->shouldAllowMockingProtectedMethods()
@@ -98,7 +98,7 @@ class ConfigTest extends TestCase
 
         config(['laravel-page-speed.enable' => false]);
 
-        $this->assertTrue($pageSpeed->isEnable());
+        $this->assertFalse($pageSpeed->isEnable());
     }
 
     protected function mockMiddlewareWithEnableNull()

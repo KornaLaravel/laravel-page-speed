@@ -4,6 +4,19 @@ All notable changes to `laravel-page-speed` will be documented in this file.
 
 ## [Unreleased]
 
+## [4.4.1] - 2026-03-14
+
+### Fixed
+
+- 🐛 **RemoveComments Middleware**: Removed broken `logPerformanceMetrics()` call that passed pre-computed elapsed time instead of raw start time, resulting in wildly inaccurate debug metrics (~1.7 billion ms). The parent `PageSpeed::handle()` already provides correct, debug-only performance logging.
+- 🐛 **InlineCss Middleware**: Fixed state leak across requests in persistent environments (Laravel Octane, Swoole). Instance properties `$class`, `$style`, and `$inline` are now reset at the beginning of each `apply()` call.
+- 🐛 **PageSpeed Base Class**: Removed stale static `$isEnabled` cache that was never cleared, causing runtime configuration changes to be silently ignored in persistent environments.
+- 🐛 **ApiResponseCache Middleware**: Removed orphaned docblock for a deleted `supportsTags()` method and corrected `invalidateCache()` return type from `@return void` to `@return bool`.
+- 🐛 **Config**: Removed duplicate `*.doc` entry in the skip list.
+
+### Changed
+
+- 🧪 Updated `ConfigTest` to validate correct behavior: `isEnable()` now reflects runtime configuration changes instead of returning a stale cached value.
 ## [4.4.0] - 2026-02-21
 
 ### Added
